@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Employee Form</title>
+    <style>
+        .error { color: red; font-size: 0.875em; }
+        .form-group { margin-bottom: 10px; }
+        label { display: block; margin-bottom: 5px; }
+        input { width: 100%; padding: 8px; box-sizing: border-box; }
+    </style>
+</head>
+<body>
+    <h1>Add Emplyoee Form</h1>
+    <form id="trainerForm">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <div class="error" id="nameError"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <div class="error" id="emailError"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="contact">Contact:</label>
+            <input type="tel" id="contact" name="contact" pattern="[0-9]{10}" required>
+            <div class="error" id="contactError"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" min="18" max="99" required>
+            <div class="error" id="ageError"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" name="dob" required>
+            <div class="error" id="dobError"></div>
+        </div>
+
+        <button type="submit">Add Trainer</button>
+    </form>
+
+    <script>
+        document.getElementById('trainerForm').addEventListener('submit', function(event) {
+            let isValid = true;
+
+            document.querySelectorAll('.error').forEach(e => e.textContent = '');
+
+            if (!document.getElementById('name').value.trim()) {
+                document.getElementById('nameError').textContent = 'Name is required.';
+                isValid = false;
+            }
+
+            if (!document.getElementById('email').validity.valid) {
+                document.getElementById('emailError').textContent = 'Invalid email.';
+                isValid = false;
+            }
+
+            if (!document.getElementById('contact').validity.valid) {
+                document.getElementById('contactError').textContent = 'Enter a 10-digit number.';
+                isValid = false;
+            }
+
+            if (document.getElementById('age').value < 18 || document.getElementById('age').value > 99) {
+                document.getElementById('ageError').textContent = 'Age must be 18-99.';
+                isValid = false;
+            }
+
+            if (!document.getElementById('dob').value) {
+                document.getElementById('dobError').textContent = 'Date of Birth required.';
+                isValid = false;
+            }
+
+            if (!isValid) event.preventDefault();
+        });
+    </script>
+</body>
+</html>
